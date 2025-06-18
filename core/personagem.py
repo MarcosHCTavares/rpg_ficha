@@ -3,91 +3,76 @@
 from core.atributos import Atributos
 from core.habilidades import Habilidades
 from core.magias import Magias
-from core.config import ATRIBUTOS_PADRAO
-
+from core.inventario import Inventario
+from core.combate import Combate
 
 class Personagem:
+    """
+    Representa um personagem de RPG completo,
+    contendo atributos, habilidades, magias, inventário e combate.
+    """
     def __init__(
         self,
         nome: str,
-        raca: str,
-        classe: str,
         nivel: int = 1,
-        atributos: dict = None,
-        habilidades_treinadas: list = None,
-        magias_conhecidas: list = None,
-        atributo_conjuracao: str = None,
+        atributos: Atributos = None,
+        proficiencia: int = 2
     ):
-        """
-        Inicializa o personagem com dados básicos e sistemas integrados.
-
-        :param nome: Nome do personagem
-        :param raca: Raça do personagem
-        :param classe: Classe do personagem
-        :param nivel: Nível atual
-        :param atributos: dict com valores dos atributos (ex: {"Força": 15})
-        :param habilidades_treinadas: lista com perícias treinadas
-        :param magias_conhecidas: lista com nomes das magias conhecidas
-        :param atributo_conjuracao: atributo usado para conjurar magias (ex: "Sabedoria")
-        """
-
         self.nome = nome
-        self.raca = raca
-        self.classe = classe
         self.nivel = nivel
 
-        # Inicializa atributos com valores padrão ou recebidos
-        self.atributos = Atributos(atributos)
+        # Atributos do personagem (Força, Destreza, etc)
+        self.atributos = atributos if atributos else Atributos()
 
-        # Inicializa habilidades (perícias)
-        self.habilidades = Habilidades()
-        if habilidades_treinadas:
-            for pericia in habilidades_treinadas:
-                self.habilidades.adicionar(pericia)
+        # Bônus de proficiência padrão (geralmente baseado no nível)
+        self.proficiencia = proficiencia
 
-        # Inicializa magias
-        self.magias = Magias()
-        if magias_conhecidas:
-            for magia in magias_conhecidas:
-                self.magias.aprender(magia)
+        # Instâncias dos subsistemas
+        self.habilidades = Habilidades(self.atributos, proficiencia=self.proficiencia)
+        self.magias = Magias(proficiencia=self.proficiencia)
+        self.inventario = Inventario()
+        self.combate = Combate(self.atributos, self.inventario, proficiencia=self.proficiencia)
 
-        # Define o atributo para conjuração
-        if atributo_conjuracao and atributo_conjuracao in ATRIBUTOS_PADRAO:
-            self.atributo_conjuracao = atributo_conjuracao
-        else:
-            # padrão para magias baseadas em Sabedoria (ex: Druidas, Rangers)
-            self.atributo_conjuracao = "Sabedoria"
+    def atualizar_proficiencia(self, novo_bonus: int):
+        """Atualiza o bônus de proficiência em todos os subsistemas."""
+        self.proficiencia = novo_bonus
+        self.habilidades.proficiencia = novo_bonus
+        self.magias.proficiencia = novo_bonus
+        self.combate.proficiencia = novo_bonus
 
-    def modificar_nivel(self, novo_nivel: int):
-        if novo_nivel < 1:
-            raise ValueError("O nível do personagem deve ser pelo menos 1.")
-        self.nivel = novo_nivel
+    def info_basica(self) -> str:
+        """Retorna uma string resumida do personagem."""
+        return f"{self.nome} (Nível {self.nivel})"
 
-    def obter_modificador(self, atributo_nome: str) -> int:
-        """
-        Retorna o modificador do atributo.
-        """
-        return self.atributos.modificador(atributo_nome)
+    def status_vida(self) -> str:
+        """Retorna pontos de vida atuais e máximos."""
+        return f"HP: {self.combate.pontos_vida_atual}/{self.combate.pontos_vida_max}"
 
-    def treinar_pericia(self, pericia: str):
-        """
-        Adiciona uma perícia treinada.
-        """
-        self.habilidades.adicionar(pericia)
+    def adicionar_pericia_treinada(self, pericia_nome: str):
+        """Adiciona perícia treinada."""
+        self.habilidades.treinar_pericia(pericia_nome)
 
-    def aprender_magia(self, magia_nome: str):
-        """
-        Adiciona uma magia ao personagem.
-        """
-        self.magias.aprender(magia_nome)
+    def adicionar_salvaguarda_treinada(self, atributo_nome: str):
+        """Adiciona salvaguarda treinada."""
+        self.habilidades.treinar_salvaguarda(atributo_nome)
 
-    def __str__(self):
-        return (
-            f"Personagem: {self.nome}\n"
-            f"Raça: {self.raca}\n"
-            f"Classe: {self.classe} (Nível {self.nivel})\n"
-            f"Atributos:\n{self.atributos}\n"
-            f"Habilidades treinadas: {', '.join(self.habilidades.listar())}\n"
-            f"Magias conhecidas: {', '.join(self.magias.listar_magias())}\n"
-            f"Atributo de conjuração: {self.atributo_conjuracao}"
-        )
+    # Aqui você pode adicionar métodos para interagir com magias, inventário e combate,
+    # como lançar magia, adicionar/remover itens, atacar, etc.
+
+# Exemplo de uso rápido
+if __name__ == "__main__":
+    atributos = Atributos(forca=15, destreza=14, constituicao=13,
+                         inteligencia=12, sabedoria=10, carisma=8)
+
+    p = Personagem("Thorin", nivel=3, atributos=atributos, proficiencia=2)
+    p.adicionar_pericia_treinada("Percepção")
+    p.adicionar_salvaguarda_treinada("Sabedoria")
+
+    print(p.info_basica())
+    print(p.status_vida())
+
+    print("Perícias treinadas:")
+    print(p.habilidades.listar_pericias())
+
+    print("Salvaguardas treinadas:")
+    print(p.habilidades.listar_salvaguardas())
