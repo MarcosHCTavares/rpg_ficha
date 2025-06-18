@@ -1,159 +1,93 @@
-# personagem.py
+# core/personagem.py
 
-from atributos import Atributos
-from habilidades import Habilidades
-from magia import LivroDeMagias, Magia
-from rolagem import Rolagem
+from core.atributos import Atributos
+from core.habilidades import Habilidades
+from core.magias import Magias
+from core.config import ATRIBUTOS_PADRAO
 
 
 class Personagem:
-    """
-    Classe principal que representa o personagem completo.
-    """
-    def __init__(self, nome, classe, nivel, raca,
-                 forca, destreza, constituicao, inteligencia, sabedoria, carisma,
-                 atributo_conjuracao=None):
+    def __init__(
+        self,
+        nome: str,
+        raca: str,
+        classe: str,
+        nivel: int = 1,
+        atributos: dict = None,
+        habilidades_treinadas: list = None,
+        magias_conhecidas: list = None,
+        atributo_conjuracao: str = None,
+    ):
+        """
+        Inicializa o personagem com dados básicos e sistemas integrados.
+
+        :param nome: Nome do personagem
+        :param raca: Raça do personagem
+        :param classe: Classe do personagem
+        :param nivel: Nível atual
+        :param atributos: dict com valores dos atributos (ex: {"Força": 15})
+        :param habilidades_treinadas: lista com perícias treinadas
+        :param magias_conhecidas: lista com nomes das magias conhecidas
+        :param atributo_conjuracao: atributo usado para conjurar magias (ex: "Sabedoria")
+        """
+
         self.nome = nome
+        self.raca = raca
         self.classe = classe
         self.nivel = nivel
-        self.raca = raca
 
-        # Cálculo de proficiência
-        self.proficiencia = self.calcular_bonus_proficiencia()
+        # Inicializa atributos com valores padrão ou recebidos
+        self.atributos = Atributos(atributos)
 
-        # Atributos
-        self.atributos = Atributos(
-            forca=forca,
-            destreza=destreza,
-            constituicao=constituicao,
-            inteligencia=inteligencia,
-            sabedoria=sabedoria,
-            carisma=carisma
-        )
+        # Inicializa habilidades (perícias)
+        self.habilidades = Habilidades()
+        if habilidades_treinadas:
+            for pericia in habilidades_treinadas:
+                self.habilidades.adicionar(pericia)
 
-        # Habilidades
-        self.habilidades = Habilidades(self.atributos, self.proficiencia)
+        # Inicializa magias
+        self.magias = Magias()
+        if magias_conhecidas:
+            for magia in magias_conhecidas:
+                self.magias.aprender(magia)
 
-        # Magias (se for conjurador)
-        if atributo_conjuracao:
-            modificador_conjuracao = self.atributos.modificador(atributo_conjuracao)
-            self.livro_de_magias = LivroDeMagias(modificador_conjuracao, self.proficiencia)
+        # Define o atributo para conjuração
+        if atributo_conjuracao and atributo_conjuracao in ATRIBUTOS_PADRAO:
+            self.atributo_conjuracao = atributo_conjuracao
         else:
-            self.livro_de_magias = None
+            # padrão para magias baseadas em Sabedoria (ex: Druidas, Rangers)
+            self.atributo_conjuracao = "Sabedoria"
 
-        # Vida e combate (básico inicial)
-        self.pv_maximo = 10 + self.atributos.modificador('Constituição') * self.nivel
-        self.pv_atual = self.pv_maximo
-        self.ca = 10 + self.atributos.modificador('Destreza')
+    def modificar_nivel(self, novo_nivel: int):
+        if novo_nivel < 1:
+            raise ValueError("O nível do personagem deve ser pelo menos 1.")
+        self.nivel = novo_nivel
 
-    def calcular_bonus_proficiencia(self):
+    def obter_modificador(self, atributo_nome: str) -> int:
         """
-        Fórmula oficial D&D 5e
+        Retorna o modificador do atributo.
         """
-        return 2 + ((self.nivel - 1) // 4)
+        return self.atributos.modificador(atributo_nome)
 
-    def status(self):
+    def treinar_pericia(self, pericia: str):
         """
-        Retorna o status geral do personagem.
+        Adiciona uma perícia treinada.
         """
-        return {
-            'Nome': self.nome,
-            'Raça': self.raca,
-            'Classe': self.classe,
-            'Nível': self.nivel,
-            'PV': f"{self.pv_atual}/{self.pv_maximo}",
-            'CA': self.ca,
-            'Proficiencia': self.proficiencia
-        }
+        self.habilidades.adicionar(pericia)
 
-    def ficha_resumida(self):
+    def aprender_magia(self, magia_nome: str):
         """
-        Retorna uma ficha simples em texto.
+        Adiciona uma magia ao personagem.
         """
-        linhas = []
-        info = self.status()
-        for k, v in info.items():
-            linhas.append(f"{k}: {v}")
+        self.magias.aprender(magia_nome)
 
-        linhas.append("\nAtributos:")
-        for attr, valor in self.atributos.atributos.items():
-            mod = self.atributos.modificador(attr)
-            linhas.append(f"  {attr}: {valor} ({mod:+})")
-
-        linhas.append("\nPerícias:")
-        linhas.extend(self.habilidades.listar_pericias())
-
-        linhas.append("\nSalvaguardas:")
-        linhas.extend(self.habilidades.listar_salvaguardas())
-
-        if self.livro_de_magias:
-            linhas.append("\nMagias Conhecidas:")
-            linhas.extend(self.livro_de_magias.listar_magias())
-
-            linhas.append("\nSlots de Magia:")
-            slots = self.livro_de_magias.listar_slots()
-            linhas.append(str(slots))
-
-        return "\n".join(linhas)
-
-
-# 🚀 Teste rápido do módulo
-if __name__ == "__main__":
-    # Criar personagem mago
-    personagem = Personagem(
-        nome="Eldrin",
-        classe="Mago",
-        nivel=3,
-        raca="Elfo",
-        forca=8,
-        destreza=14,
-        constituicao=13,
-        inteligencia=16,
-        sabedoria=10,
-        carisma=12,
-        atributo_conjuracao="Inteligência"
-    )
-
-    # Treinar perícias e salvaguardas
-    personagem.habilidades.treinar_pericia('Percepção')
-    personagem.habilidades.treinar_pericia('Investigação')
-    personagem.habilidades.treinar_salvaguarda('Inteligência')
-    personagem.habilidades.treinar_salvaguarda('Sabedoria')
-
-    # Configurar magias
-    personagem.livro_de_magias.definir_slots(1, 4)
-    personagem.livro_de_magias.definir_slots(2, 2)
-
-    # Adicionar magias
-    personagem.livro_de_magias.adicionar_magia(
-        Magia(
-            nome="Mísseis Mágicos",
-            nivel=1,
-            escola="Evocação",
-            descricao="Dardos mágicos que acertam automaticamente.",
-            dano=('d4', 3, '+3')
+    def __str__(self):
+        return (
+            f"Personagem: {self.nome}\n"
+            f"Raça: {self.raca}\n"
+            f"Classe: {self.classe} (Nível {self.nivel})\n"
+            f"Atributos:\n{self.atributos}\n"
+            f"Habilidades treinadas: {', '.join(self.habilidades.listar())}\n"
+            f"Magias conhecidas: {', '.join(self.magias.listar_magias())}\n"
+            f"Atributo de conjuração: {self.atributo_conjuracao}"
         )
-    )
-
-    personagem.livro_de_magias.adicionar_magia(
-        Magia(
-            nome="Imagem Espelhada",
-            nivel=2,
-            escola="Ilusão",
-            descricao="Cria ilusões para confundir inimigos."
-        )
-    )
-
-    personagem.livro_de_magias.adicionar_magia(
-        Magia(
-            nome="Bola de Fogo",
-            nivel=3,
-            escola="Evocação",
-            descricao="Explosão de fogo causando dano em área.",
-            dano=('d6', 8, '+0'),
-            testes_resistencia=True
-        )
-    )
-
-    # Mostrar ficha
-    print(personagem.ficha_resumida())
