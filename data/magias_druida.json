@@ -1,0 +1,24 @@
+[
+  {
+    "nome": "Raio de Gelo",
+    "nivel": 0,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "18 metros",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Causa 1d8 de dano de frio e reduz a velocidade em 3 metros até o final do turno.",
+    "classes": ["Druida"]
+  },
+  {
+    "nome": "Chama Sagrada",
+    "nivel": 0,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "18 metros",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Uma chama desce sobre o alvo, causando 1d8 de dano radiante. Ignora cobertura.",
+    "classes": ["Druida"]
+  }
+]
