@@ -1,116 +1,83 @@
-# rolagem.py
+# core/rolagem.py
 
 import random
-
+from typing import Optional, Tuple, Dict
 
 class Rolagem:
-    """
-    Realiza rolagens de dados, testes, ataques e checagens.
-    """
+    @staticmethod
+    def rolar_dado(faces: int = 20) -> int:
+        """Rola um dado de 'faces' lados."""
+        return random.randint(1, faces)
 
     @staticmethod
-    def dado(lados, quantidade=1, bonus=0):
+    def rolar_ataque(bonus: int = 0, vantagem: Optional[bool] = None) -> Dict[str, int]:
         """
-        Rola qualquer dado.
-        Ex.: dado(6, 2, +3) -> 2d6 +3
-        """
-        resultados = [random.randint(1, lados) for _ in range(quantidade)]
-        total = sum(resultados) + bonus
-        return {
-            'resultados': resultados,
-            'bonus': bonus,
-            'total': total
-        }
+        Rola um teste de ataque ou perícia com possível vantagem ou desvantagem.
 
-    @staticmethod
-    def d20(bonus=0):
-        """
-        Rola 1d20 + bônus.
-        """
-        return Rolagem.dado(20, 1, bonus)
-
-    @staticmethod
-    def d20_vantagem(bonus=0):
-        """
-        Rola 2d20, pega o maior (vantagem).
-        """
-        rolagens = [random.randint(1, 20) for _ in range(2)]
-        total = max(rolagens) + bonus
-        return {
-            'resultados': rolagens,
-            'bonus': bonus,
-            'total': total,
-            'tipo': 'Vantagem'
-        }
-
-    @staticmethod
-    def d20_desvantagem(bonus=0):
-        """
-        Rola 2d20, pega o menor (desvantagem).
-        """
-        rolagens = [random.randint(1, 20) for _ in range(2)]
-        total = min(rolagens) + bonus
-        return {
-            'resultados': rolagens,
-            'bonus': bonus,
-            'total': total,
-            'tipo': 'Desvantagem'
-        }
-
-    @staticmethod
-    def rolar_ataque(bonus_ataque=0, vantagem=None):
-        """
-        Faz uma rolagem de ataque:
-        - vantagem = True -> vantagem
-        - vantagem = False -> desvantagem
-        - vantagem = None -> rolagem normal
+        :param bonus: bônus a ser somado no resultado da rolagem
+        :param vantagem: True para vantagem, False para desvantagem, None para normal
+        :return: dict com valores individuais e total
         """
         if vantagem is True:
-            return Rolagem.d20_vantagem(bonus_ataque)
+            rolagens = [Rolagem.rolar_dado(), Rolagem.rolar_dado()]
+            melhor = max(rolagens)
+            resultado_total = melhor + bonus
+            return {
+                "rolagens": rolagens,
+                "resultado": melhor,
+                "bonus": bonus,
+                "total": resultado_total,
+                "tipo": "vantagem"
+            }
         elif vantagem is False:
-            return Rolagem.d20_desvantagem(bonus_ataque)
+            rolagens = [Rolagem.rolar_dado(), Rolagem.rolar_dado()]
+            pior = min(rolagens)
+            resultado_total = pior + bonus
+            return {
+                "rolagens": rolagens,
+                "resultado": pior,
+                "bonus": bonus,
+                "total": resultado_total,
+                "tipo": "desvantagem"
+            }
         else:
-            return Rolagem.d20(bonus_ataque)
+            rolagem = Rolagem.rolar_dado()
+            resultado_total = rolagem + bonus
+            return {
+                "rolagens": [rolagem],
+                "resultado": rolagem,
+                "bonus": bonus,
+                "total": resultado_total,
+                "tipo": "normal"
+            }
 
     @staticmethod
-    def rolar_dano(dado, quantidade=1, bonus=0):
+    def rolagem_texto(resultado: Dict[str, int]) -> str:
         """
-        Rola dano. Ex.: d8, quantidade=2, bonus=3 -> 2d8 +3
-        """
-        lados = int(dado[1:])  # 'd8' -> 8
-        return Rolagem.dado(lados, quantidade, bonus)
+        Gera uma string amigável para o resultado da rolagem.
 
-    @staticmethod
-    def rolagem_texto(resultado):
+        Exemplo:
+         - Normal: "Rolagem: 15 + bônus 3 = 18"
+         - Vantagem: "Rolagens: 12 e 17, usa 17 + bônus 3 = 20"
+         - Desvantagem: "Rolagens: 8 e 5, usa 5 + bônus 3 = 8"
         """
-        Formata o resultado da rolagem como texto amigável.
-        """
-        texto = f"Rolagens: {resultado['resultados']} | Bônus: {resultado['bonus']} | Total: {resultado['total']}"
-        if 'tipo' in resultado:
-            texto = f"{resultado['tipo']} -> {texto}"
-        return texto
+        tipo = resultado.get("tipo", "normal")
+        bonus = resultado.get("bonus", 0)
+        total = resultado.get("total", 0)
+        rolagens = resultado.get("rolagens", [])
+
+        if tipo == "vantagem":
+            return (f"Rolagens: {rolagens[0]} e {rolagens[1]}, "
+                    f"usa {max(rolagens)} + bônus {bonus} = {total}")
+        elif tipo == "desvantagem":
+            return (f"Rolagens: {rolagens[0]} e {rolagens[1]}, "
+                    f"usa {min(rolagens)} + bônus {bonus} = {total}")
+        else:
+            return f"Rolagem: {rolagens[0]} + bônus {bonus} = {total}"
 
 
-# 🚀 Teste rápido do módulo
+# Teste rápido
 if __name__ == "__main__":
-    print("=== Teste de Rolagem ===")
-
-    # D20 normal
-    r = Rolagem.d20(+3)
-    print("D20 Normal:", Rolagem.rolagem_texto(r))
-
-    # D20 vantagem
-    r = Rolagem.d20_vantagem(+5)
-    print("D20 Vantagem:", Rolagem.rolagem_texto(r))
-
-    # D20 desvantagem
-    r = Rolagem.d20_desvantagem(+2)
-    print("D20 Desvantagem:", Rolagem.rolagem_texto(r))
-
-    # Ataque
-    r = Rolagem.rolar_ataque(bonus_ataque=6, vantagem=True)
-    print("Ataque com vantagem:", Rolagem.rolagem_texto(r))
-
-    # Dano
-    r = Rolagem.rolar_dano('d8', quantidade=2, bonus=3)
-    print("Dano 2d8+3:", Rolagem.rolagem_texto(r))
+    print("Rolagem normal:", Rolagem.rolar_ataque(3))
+    print("Rolagem com vantagem:", Rolagem.rolar_ataque(3, vantagem=True))
+    print("Rolagem com desvantagem:", Rolagem.rolar_ataque(3, vantagem=False))
