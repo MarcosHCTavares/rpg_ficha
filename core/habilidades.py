@@ -3,8 +3,6 @@
 from atributos import Atributos
 from rolagem import Rolagem
 
-
-# 📜 Lista padrão de perícias D&D 5e
 PERICIAS = {
     'Acrobacia': 'Destreza',
     'Arcanismo': 'Inteligência',
@@ -28,86 +26,51 @@ PERICIAS = {
 
 
 class Habilidades:
-    """
-    Gerencia perícias, testes de atributos e salvaguardas.
-    """
     def __init__(self, atributos: Atributos, proficiencia=2):
-        """
-        atributos: instância de Atributos
-        proficiencia: bônus de proficiência (nível do personagem)
-        """
         self.atributos = atributos
         self.proficiencia = proficiencia
-
-        # Perícias treinadas
         self.pericias_treinadas = []
-
-        # Salvaguardas treinadas (resistências)
         self.salvaguardas_treinadas = []
 
-    # 🚩 ----- Gestão de perícias e salvaguardas -----
-
-    def treinar_pericia(self, nome):
-        if nome in PERICIAS:
-            self.pericias_treinadas.append(nome)
-        else:
-            raise ValueError(f"Perícia '{nome}' não existe.")
-
-    def treinar_salvaguarda(self, atributo):
-        if atributo in self.atributos.atributos:
-            self.salvaguardas_treinadas.append(atributo)
-        else:
-            raise ValueError(f"Atributo '{atributo}' inválido.")
-
-    # 🚩 ----- Rolagens -----
-
-    def teste_pericia(self, nome, vantagem=None):
-        """
-        Rola um teste de perícia.
-        """
+    def treinar_pericia(self, nome: str):
         if nome not in PERICIAS:
             raise ValueError(f"Perícia '{nome}' não existe.")
+        if nome not in self.pericias_treinadas:
+            self.pericias_treinadas.append(nome)
 
+    def treinar_salvaguarda(self, atributo: str):
+        if atributo not in self.atributos.atributos:
+            raise ValueError(f"Atributo '{atributo}' inválido.")
+        if atributo not in self.salvaguardas_treinadas:
+            self.salvaguardas_treinadas.append(atributo)
+
+    def teste_pericia(self, nome: str, vantagem: bool = None):
+        if nome not in PERICIAS:
+            raise ValueError(f"Perícia '{nome}' não existe.")
         atributo = PERICIAS[nome]
         bonus = self.atributos.modificador(atributo)
-
         if nome in self.pericias_treinadas:
             bonus += self.proficiencia
-
         resultado = Rolagem.rolar_ataque(bonus, vantagem)
         return resultado
 
-    def teste_atributo(self, atributo, vantagem=None):
-        """
-        Teste bruto de atributo (sem perícia).
-        """
+    def teste_atributo(self, atributo: str, vantagem: bool = None):
         if atributo not in self.atributos.atributos:
             raise ValueError(f"Atributo '{atributo}' inválido.")
-
         bonus = self.atributos.modificador(atributo)
         resultado = Rolagem.rolar_ataque(bonus, vantagem)
         return resultado
 
-    def salvaguarda(self, atributo, vantagem=None):
-        """
-        Teste de resistência (salvaguarda).
-        """
+    def salvaguarda(self, atributo: str, vantagem: bool = None):
         if atributo not in self.atributos.atributos:
             raise ValueError(f"Atributo '{atributo}' inválido.")
-
         bonus = self.atributos.modificador(atributo)
         if atributo in self.salvaguardas_treinadas:
             bonus += self.proficiencia
-
         resultado = Rolagem.rolar_ataque(bonus, vantagem)
         return resultado
 
-    # 🚩 ----- Visualização -----
-
     def listar_pericias(self):
-        """
-        Lista perícias e seus bônus atuais.
-        """
         linhas = []
         for nome, atributo in PERICIAS.items():
             mod = self.atributos.modificador(atributo)
@@ -116,9 +79,6 @@ class Habilidades:
         return linhas
 
     def listar_salvaguardas(self):
-        """
-        Lista salvaguardas e seus bônus.
-        """
         linhas = []
         for atributo in self.atributos.atributos.keys():
             mod = self.atributos.modificador(atributo)
@@ -127,12 +87,11 @@ class Habilidades:
         return linhas
 
 
-# 🚀 Teste rápido do módulo
 if __name__ == "__main__":
     from atributos import Atributos
 
     atributos = Atributos(forca=14, destreza=12, constituicao=13,
-                           inteligencia=10, sabedoria=16, carisma=8)
+                         inteligencia=10, sabedoria=16, carisma=8)
 
     habilidades = Habilidades(atributos, proficiencia=2)
 
