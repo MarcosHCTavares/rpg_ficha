@@ -1,0 +1,25 @@
+[
+  {
+    "nome": "Bola de Fogo",
+    "nivel": 3,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "45 metros",
+    "componentes": ["V", "S", "M"],
+    "materiais": "Guano de morcego e enxofre",
+    "duracao": "Instantânea",
+    "descricao": "Explosão de fogo que causa 8d6 de dano de fogo em uma área de 6 metros.",
+    "classes": ["Feiticeiro"]
+  },
+  {
+    "nome": "Mísseis Mágicos",
+    "nivel": 1,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "36 metros",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Três dardos de energia mágica que acertam automaticamente, causando 1d4+1 de dano cada.",
+    "classes": ["Feiticeiro"]
+  }
+]
