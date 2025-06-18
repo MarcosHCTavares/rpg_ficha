@@ -1,124 +1,106 @@
-# combate.py
+# core/combate.py
 
-from atributos import Atributos
+from typing import Optional
+from core.rolagem import Rolagem
+from core.atributos import Atributos
+from core.inventario import Inventario
 
 
 class Combate:
     """
-    Gerencia os aspectos de combate do personagem:
-    Pontos de Vida, Classe de Armadura, Iniciativa, Dados de Vida e Ataques.
+    Classe para gerenciar combate entre personagens.
     """
 
-    def __init__(self, atributos: Atributos, nivel=1, dados_vida="d8", ca_base=10):
-        """
-        atributos: instância da classe Atributos
-        nivel: nível atual do personagem
-        dados_vida: tipo de dado de vida da classe (ex.: 'd8', 'd10')
-        ca_base: base da Classe de Armadura (sem armadura)
-        """
+    def __init__(self, atributos: Atributos, inventario: Optional[Inventario] = None, proficiencia: int = 2):
         self.atributos = atributos
-        self.nivel = nivel
-        self.dados_vida = dados_vida  # Ex.: 'd8', 'd10'
-        self.ca_base = ca_base
+        self.inventario = inventario or Inventario()
+        self.pontos_vida_max = 10 + atributos.modificador("Constituição")  # Exemplo base; ajustar conforme classe
+        self.pontos_vida_atual = self.pontos_vida_max
+        self.proficiencia = proficiencia
+        self.condicoes = set()  # ex: 'envenenado', 'paralisado', etc.
 
-        # Pontos de Vida
-        self.pv_maximo = self.calcular_pv_maximo()
-        self.pv_atual = self.pv_maximo
-        self.pv_temporario = 0
-
-        # Iniciativa
-        self.iniciativa = self.atributos.modificador('Destreza')
-
-        # Classe de Armadura
-        self.ca = self.calcular_ca()
-
-    # 🚩 ----- Cálculos principais -----
-
-    def calcular_pv_maximo(self):
+    def iniciativa(self) -> dict:
         """
-        Calcula o PV máximo inicial (nível 1) + PV por nível.
-        Fórmula simplificada: dado cheio no primeiro nível + (dado médio + mod de CON) * níveis adicionais.
+        Rola iniciativa (d20 + modificador de Destreza).
         """
-        dado = int(self.dados_vida[1:])  # Extrai o número do dado (ex.: 'd8' -> 8)
-        mod_con = self.atributos.modificador('Constituição')
+        bonus = self.atributos.modificador("Destreza")
+        resultado = Rolagem.rolar_ataque(bonus)
+        return resultado
 
-        pv = dado  # Primeiro nível é o dado cheio
-        if self.nivel > 1:
-            pv += ( ((dado // 2) + 1 + mod_con) * (self.nivel - 1) )
-        pv += mod_con  # Bônus de Constituição no nível 1
-
-        return max(pv, 1)
-
-    def calcular_ca(self, armadura_bonus=0, escudo_bonus=0):
+    def atacar(self, bonus_ataque: int = 0, vantagem: Optional[bool] = None) -> dict:
         """
-        Calcula a Classe de Armadura.
-        Fórmula base: 10 + Destreza + bônus de armadura + bônus de escudo.
+        Rola um ataque com bônus e possibilidade de vantagem/desvantagem.
+        Considera modificador de Força ou Destreza dependendo da arma (simplificado aqui como Força).
         """
-        mod_dex = self.atributos.modificador('Destreza')
-        return self.ca_base + mod_dex + armadura_bonus + escudo_bonus
+        mod_forca = self.atributos.modificador("Força")
+        total_bonus = mod_forca + bonus_ataque + self.proficiencia
+        resultado = Rolagem.rolar_ataque(total_bonus, vantagem)
+        return resultado
 
-    # 🚩 ----- Gestão de PV -----
-
-    def receber_dano(self, dano):
+    def receber_dano(self, dano: int) -> None:
         """
         Aplica dano ao personagem.
-        Primeiro reduz PV temporário, depois PV atual.
         """
-        if self.pv_temporario > 0:
-            if dano <= self.pv_temporario:
-                self.pv_temporario -= dano
-                dano = 0
-            else:
-                dano -= self.pv_temporario
-                self.pv_temporario = 0
+        self.pontos_vida_atual -= dano
+        if self.pontos_vida_atual < 0:
+            self.pontos_vida_atual = 0
 
-        self.pv_atual = max(self.pv_atual - dano, 0)
-
-    def curar(self, quantidade):
+    def curar(self, cura: int) -> None:
         """
-        Cura o personagem até o PV máximo.
+        Aplica cura ao personagem, sem ultrapassar o máximo.
         """
-        self.pv_atual = min(self.pv_atual + quantidade, self.pv_maximo)
+        self.pontos_vida_atual += cura
+        if self.pontos_vida_atual > self.pontos_vida_max:
+            self.pontos_vida_atual = self.pontos_vida_max
 
-    def adicionar_pv_temporario(self, quantidade):
+    def esta_vivo(self) -> bool:
         """
-        Adiciona PV temporário (não acumula com os atuais, apenas substitui se maior).
+        Retorna True se o personagem estiver com vida acima de 0.
         """
-        if quantidade > self.pv_temporario:
-            self.pv_temporario = quantidade
+        return self.pontos_vida_atual > 0
 
-    # 🚩 ----- Representação -----
+    def aplicar_condicao(self, condicao: str) -> None:
+        """
+        Aplica uma condição negativa ao personagem.
+        """
+        self.condicoes.add(condicao)
 
-    def __str__(self):
-        return (f"PV: {self.pv_atual}/{self.pv_maximo} (Temp: {self.pv_temporario})\n"
-                f"CA: {self.ca}\n"
-                f"Iniciativa: {self.iniciativa:+}\n"
-                f"Dado de Vida: {self.dados_vida} x {self.nivel}")
+    def remover_condicao(self, condicao: str) -> None:
+        """
+        Remove uma condição.
+        """
+        self.condicoes.discard(condicao)
 
-# 🚀 Teste rápido do módulo
+    def listar_condicoes(self) -> list:
+        """
+        Retorna uma lista das condições atuais.
+        """
+        return list(self.condicoes)
+
+
+# Teste rápido do módulo
 if __name__ == "__main__":
-    from atributos import Atributos
+    from core.atributos import Atributos
+    from core.inventario import Inventario
 
-    atributos = Atributos(forca=15, destreza=14, constituicao=13,
-                           inteligencia=12, sabedoria=10, carisma=8)
+    atributos = Atributos(forca=16, destreza=14, constituicao=12,
+                          inteligencia=10, sabedoria=8, carisma=13)
+    inventario = Inventario()
 
-    combate = Combate(atributos, nivel=3, dados_vida='d10')
+    combate = Combate(atributos, inventario)
 
-    print("=== Combate Inicial ===")
-    print(combate)
+    print("Iniciativa:", combate.iniciativa())
+    print("Ataque:", combate.atacar(bonus_ataque=1, vantagem=True))
 
-    print("\nRecebe 8 de dano...")
-    combate.receber_dano(8)
-    print(combate)
+    combate.receber_dano(5)
+    print(f"Pontos de vida após dano: {combate.pontos_vida_atual}")
 
-    print("\nCura 5 PV...")
-    combate.curar(5)
-    print(combate)
+    combate.curar(3)
+    print(f"Pontos de vida após cura: {combate.pontos_vida_atual}")
 
-    print("\nAdiciona 6 PV temporário...")
-    combate.adicionar_pv_temporario(6)
-    print(combate)
+    combate.aplicar_condicao("envenenado")
+    combate.aplicar_condicao("atordoado")
+    print("Condições atuais:", combate.listar_condicoes())
 
-    print("\nRecebe 10 de dano...")
-    combate.receber_dano(10)
-    print(combate)
+    combate.remover_condicao("envenenado")
+    print("Condições após remover envenenado:", combate.listar_condicoes())
