@@ -1,73 +1,63 @@
-# atributos.py
+# core/atributos.py
+
+from core.config import ATRIBUTOS_PADRAO
+
 
 class Atributos:
     """
-    Classe para gerenciar os 6 atributos principais de um personagem de RPG.
+    Gerencia os atributos principais do personagem.
     """
 
-    def __init__(self, forca=10, destreza=10, constituicao=10,
-                 inteligencia=10, sabedoria=10, carisma=10):
-        self.valores = {
-            'Força': forca,
-            'Destreza': destreza,
-            'Constituição': constituicao,
-            'Inteligência': inteligencia,
-            'Sabedoria': sabedoria,
-            'Carisma': carisma
+    def __init__(self, valores=None):
+        """
+        Inicializa os atributos do personagem.
+        :param valores: dicionário opcional com valores iniciais
+        """
+        if valores is None:
+            valores = {}
+
+        # Gera os atributos com valores padrão (10) se não fornecido
+        self.atributos = {
+            atributo: valores.get(atributo, 10) for atributo in ATRIBUTOS_PADRAO
         }
 
-    def obter_valor(self, atributo):
+    def definir_atributo(self, nome, valor):
         """
-        Retorna o valor do atributo.
+        Define um valor para um atributo.
         """
-        return self.valores.get(atributo, None)
+        if nome not in ATRIBUTOS_PADRAO:
+            raise ValueError(f"Atributo '{nome}' não é válido.")
+        self.atributos[nome] = valor
 
-    def definir_valor(self, atributo, valor):
+    def obter_atributo(self, nome):
         """
-        Define um novo valor para o atributo.
+        Retorna o valor atual de um atributo.
         """
-        if atributo in self.valores:
-            self.valores[atributo] = valor
-        else:
-            raise ValueError(f"Atributo '{atributo}' não existe.")
+        if nome not in ATRIBUTOS_PADRAO:
+            raise ValueError(f"Atributo '{nome}' não existe.")
+        return self.atributos[nome]
 
-    def modificador(self, atributo):
+    def modificador(self, nome):
         """
-        Calcula e retorna o modificador do atributo.
+        Retorna o modificador de um atributo (padrão D&D).
         Fórmula: (atributo - 10) // 2
         """
-        valor = self.obter_valor(atributo)
-        if valor is None:
-            raise ValueError(f"Atributo '{atributo}' não existe.")
+        valor = self.obter_atributo(nome)
         return (valor - 10) // 2
 
-    def todos_modificadores(self):
+    def todos(self):
         """
-        Retorna um dicionário com todos os modificadores dos atributos.
+        Retorna um dicionário com todos os atributos e seus valores.
         """
-        return {atributo: self.modificador(atributo) for atributo in self.valores}
+        return self.atributos.copy()
 
     def __str__(self):
         """
-        Retorna uma string com os atributos e seus modificadores.
+        Retorna uma representação em string dos atributos e modificadores.
         """
         linhas = []
-        for atributo, valor in self.valores.items():
-            mod = self.modificador(atributo)
-            linhas.append(f"{atributo}: {valor} (Mod: {mod:+})")
+        for nome in ATRIBUTOS_PADRAO:
+            valor = self.atributos[nome]
+            mod = self.modificador(nome)
+            linhas.append(f"{nome}: {valor} ({mod:+})")
         return "\n".join(linhas)
-
-
-# 🚀 Teste rápido do módulo
-if __name__ == "__main__":
-    atributos = Atributos(forca=15, destreza=14, constituicao=13,
-                           inteligencia=12, sabedoria=10, carisma=8)
-
-    print("Atributos do Personagem:")
-    print(atributos)
-
-    print("\nModificador de Força:", atributos.modificador("Força"))
-
-    atributos.definir_valor("Carisma", 16)
-    print("\nApós alterar Carisma para 16:")
-    print(atributos)
