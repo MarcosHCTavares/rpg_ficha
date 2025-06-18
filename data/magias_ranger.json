@@ -1,0 +1,13 @@
+[
+  {
+    "nome": "Marca do Caçador",
+    "nivel": 1,
+    "escola": "Adivinhação",
+    "tempo_conjuracao": "1 ação bônus",
+    "alcance": "27 metros",
+    "componentes": ["V"],
+    "duracao": "Concentração, até 1 hora",
+    "descricao": "Marca um alvo. Ataques contra ele causam +1d6 de dano.",
+    "classes": ["Ranger"]
+  }
+]
