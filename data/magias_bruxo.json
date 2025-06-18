@@ -1,0 +1,24 @@
+[
+  {
+    "nome": "Eldritch Blast (Rajada Mística)",
+    "nivel": 0,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "36 metros",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Dispara uma rajada de energia que causa 1d10 de dano de força.",
+    "classes": ["Bruxo"]
+  },
+  {
+    "nome": "Passo Nebuloso",
+    "nivel": 2,
+    "escola": "Transmutação",
+    "tempo_conjuracao": "1 ação bônus",
+    "alcance": "Pessoal",
+    "componentes": ["V"],
+    "duracao": "Instantânea",
+    "descricao": "Teleporta-se para um local desocupado a até 9 metros.",
+    "classes": ["Bruxo"]
+  }
+]
