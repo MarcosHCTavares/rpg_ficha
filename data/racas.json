@@ -1,0 +1,153 @@
+[
+  {
+    "nome": "Anão",
+    "descricao": "Anões são robustos, resistentes e trabalhadores. Vivem em comunidades subterrâneas.",
+    "modificadores": { "constituicao": 2 },
+    "habilidades": ["Visão no Escuro", "Resiliência Anã", "Proficiência em Ferramentas"],
+    "subracas": [
+      {
+        "nome": "Anão da Colina",
+        "modificadores": { "sabedoria": 1 },
+        "habilidades": ["Resistência Anã (PV Extra)"]
+      },
+      {
+        "nome": "Anão da Montanha",
+        "modificadores": { "forca": 2 },
+        "habilidades": ["Treinamento Anão com Armaduras Leves e Médias"]
+      }
+    ]
+  },
+  {
+    "nome": "Elfo",
+    "descricao": "Elfos são graciosos, ágeis e conectados à magia e à natureza.",
+    "modificadores": { "destreza": 2 },
+    "habilidades": ["Visão no Escuro", "Ancestral Feérico", "Transe"],
+    "subracas": [
+      {
+        "nome": "Alto Elfo",
+        "modificadores": { "inteligencia": 1 },
+        "habilidades": ["Truque de Mago"]
+      },
+      {
+        "nome": "Elfo da Floresta",
+        "modificadores": { "sabedoria": 1 },
+        "habilidades": ["Passo Leve", "Movimento +1,5m"]
+      },
+      {
+        "nome": "Elfo Negro (Drow)",
+        "modificadores": { "carisma": 1 },
+        "habilidades": ["Magia Drow", "Visão no Escuro Superior", "Sensibilidade à Luz"]
+      }
+    ]
+  },
+  {
+    "nome": "Halfling",
+    "descricao": "Pequenos, afortunados e ágeis. Conhecidos por sua sorte e ousadia.",
+    "modificadores": { "destreza": 2 },
+    "habilidades": ["Sorte", "Bravura", "Agilidade Halfling"],
+    "subracas": [
+      {
+        "nome": "Pés Leves",
+        "modificadores": { "carisma": 1 },
+        "habilidades": ["Furtividade Natural"]
+      },
+      {
+        "nome": "Robusto",
+        "modificadores": { "constituicao": 1 },
+        "habilidades": ["Resistência a Veneno"]
+      }
+    ]
+  },
+  {
+    "nome": "Humano",
+    "descricao": "Versáteis e adaptáveis, humanos são comuns em todos os lugares.",
+    "modificadores": {
+      "forca": 1,
+      "destreza": 1,
+      "constituicao": 1,
+      "inteligencia": 1,
+      "sabedoria": 1,
+      "carisma": 1
+    },
+    "habilidades": [],
+    "subracas": []
+  },
+  {
+    "nome": "Meio-Elfo",
+    "descricao": "Filhos de humanos e elfos, versáteis e carismáticos.",
+    "modificadores": {
+      "carisma": 2
+    },
+    "escolha_adicional": {
+      "atributos_livres": 2
+    },
+    "habilidades": ["Ancestral Feérico", "Versatilidade em Perícias"],
+    "subracas": []
+  },
+  {
+    "nome": "Meio-Orc",
+    "descricao": "Fortes e intimidantes, herdeiros de orcs e humanos.",
+    "modificadores": {
+      "forca": 2,
+      "constituicao": 1
+    },
+    "habilidades": ["Ataque Selvagem", "Ameaçador", "Resistência Implacável"],
+    "subracas": []
+  },
+  {
+    "nome": "Tiefling",
+    "descricao": "Descendentes de linhagens infernais, dotados de habilidades mágicas.",
+    "modificadores": {
+      "inteligencia": 1,
+      "carisma": 2
+    },
+    "habilidades": ["Resistência Infernal", "Legado Infernal (Magias)"],
+    "subracas": []
+  },
+  {
+    "nome": "Draconato",
+    "descricao": "Descendentes de dragões, orgulhosos e poderosos.",
+    "modificadores": {
+      "forca": 2,
+      "carisma": 1
+    },
+    "habilidades": ["Arma de Sopro", "Resistência Dracônica"],
+    "subracas": [
+      {
+        "nome": "Dragão Vermelho",
+        "descricao": "Fogo",
+        "resistencia": "Fogo"
+      },
+      {
+        "nome": "Dragão Azul",
+        "descricao": "Eletricidade",
+        "resistencia": "Eletricidade"
+      },
+      {
+        "nome": "Dragão Verde",
+        "descricao": "Veneno",
+        "resistencia": "Veneno"
+      }
+    ]
+  },
+  {
+    "nome": "Gnomo",
+    "descricao": "Pequenos, inventivos e naturalmente mágicos.",
+    "modificadores": {
+      "inteligencia": 2
+    },
+    "habilidades": ["Visão no Escuro", "Esperteza Gnômica (Vantagem contra Magias)"],
+    "subracas": [
+      {
+        "nome": "Gnomo da Floresta",
+        "modificadores": { "destreza": 1 },
+        "habilidades": ["Falar com Animais Pequenos"]
+      },
+      {
+        "nome": "Gnomo das Rochas",
+        "modificadores": { "constituicao": 1 },
+        "habilidades": ["Engenho Gnômico"]
+      }
+    ]
+  }
+]
