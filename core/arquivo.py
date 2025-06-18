@@ -3,6 +3,16 @@
 import json
 from core.personagem import Personagem
 from core.atributos import Atributos
+from pathlib import Path
+
+# Diretórios de saída
+PASTA_SAIDA = Path("output")
+PASTA_FICHAS = PASTA_SAIDA / "fichas_salvas"
+PASTA_PDFS = PASTA_SAIDA / "pdfs_gerados"
+
+# Cria as pastas, se não existirem
+for pasta in [PASTA_SAIDA, PASTA_FICHAS, PASTA_PDFS]:
+    pasta.mkdir(parents=True, exist_ok=True)
 
 def salvar_personagem(personagem: Personagem, caminho: str):
     """
