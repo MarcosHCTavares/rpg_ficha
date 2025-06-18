@@ -1,0 +1,142 @@
+{
+  "Simples Corpo a Corpo": {
+    "Adaga": {
+      "dano": "1d4 perfurante",
+      "peso": 0.5,
+      "preco": "2 PO",
+      "propriedades": ["leve", "arremesso (6/18)"]
+    },
+    "Bordão": {
+      "dano": "1d6 contusão",
+      "peso": 2,
+      "preco": "0.2 PO",
+      "propriedades": ["versátil (1d8)"]
+    },
+    "Clava": {
+      "dano": "1d6 contusão",
+      "peso": 1,
+      "preco": "0.1 PO",
+      "propriedades": []
+    },
+    "Maça": {
+      "dano": "1d6 contusão",
+      "peso": 2,
+      "preco": "5 PO",
+      "propriedades": []
+    },
+    "Machadinha": {
+      "dano": "1d6 cortante",
+      "peso": 1,
+      "preco": "5 PO",
+      "propriedades": ["leve", "arremesso (6/18)"]
+    },
+    "Foice Curta": {
+      "dano": "1d4 cortante",
+      "peso": 1,
+      "preco": "1 PO",
+      "propriedades": ["leve"]
+    },
+    "Lança": {
+      "dano": "1d6 perfurante",
+      "peso": 1.5,
+      "preco": "1 PO",
+      "propriedades": ["arremesso (6/18)", "versátil (1d8)"]
+    }
+  },
+  "Simples à Distância": {
+    "Bestinha de Mão": {
+      "dano": "1d6 perfurante",
+      "peso": 2.5,
+      "preco": "25 PO",
+      "propriedades": ["leve", "recarga", "munição (9/36)"]
+    },
+    "Dardo": {
+      "dano": "1d4 perfurante",
+      "peso": 0.25,
+      "preco": "0.05 PO",
+      "propriedades": ["arremesso (6/18)"]
+    },
+    "Funda": {
+      "dano": "1d4 contusão",
+      "peso": 0.25,
+      "preco": "0.1 PO",
+      "propriedades": ["munição (9/36)"]
+    }
+  },
+  "Marcial Corpo a Corpo": {
+    "Espada Longa": {
+      "dano": "1d8 cortante",
+      "peso": 1.5,
+      "preco": "15 PO",
+      "propriedades": ["versátil (1d10)"]
+    },
+    "Espada Curta": {
+      "dano": "1d6 perfurante",
+      "peso": 1,
+      "preco": "10 PO",
+      "propriedades": ["leve", "finesse"]
+    },
+    "Espadão": {
+      "dano": "2d6 cortante",
+      "peso": 3,
+      "preco": "50 PO",
+      "propriedades": ["duas mãos"]
+    },
+    "Machado de Batalha": {
+      "dano": "1d8 cortante",
+      "peso": 2,
+      "preco": "10 PO",
+      "propriedades": ["versátil (1d10)"]
+    },
+    "Martelo de Guerra": {
+      "dano": "1d8 contusão",
+      "peso": 2,
+      "preco": "15 PO",
+      "propriedades": ["versátil (1d10)"]
+    },
+    "Lança Longa": {
+      "dano": "1d10 perfurante",
+      "peso": 3,
+      "preco": "10 PO",
+      "propriedades": ["alcance", "duas mãos"]
+    },
+    "Mangual": {
+      "dano": "1d8 contusão",
+      "peso": 1.5,
+      "preco": "10 PO",
+      "propriedades": []
+    },
+    "Picareta de Guerra": {
+      "dano": "1d8 perfurante",
+      "peso": 2,
+      "preco": "5 PO",
+      "propriedades": []
+    }
+  },
+  "Marcial à Distância": {
+    "Arco Curto": {
+      "dano": "1d6 perfurante",
+      "peso": 1,
+      "preco": "25 PO",
+      "propriedades": ["munição (24/96)", "duas mãos"]
+    },
+    "Arco Longo": {
+      "dano": "1d8 perfurante",
+      "peso": 2,
+      "preco": "50 PO",
+      "propriedades": ["munição (45/180)", "duas mãos"]
+    },
+    "Bestinha Pesada": {
+      "dano": "1d10 perfurante",
+      "peso": 9,
+      "preco": "50 PO",
+      "propriedades": ["recarga", "munição (30/120)", "duas mãos"]
+    },
+    "Rede": {
+      "dano": "0",
+      "peso": 1.5,
+      "preco": "1 PO",
+      "propriedades": ["arremesso (3/9)", "especial"]
+    }
+  }
+}
