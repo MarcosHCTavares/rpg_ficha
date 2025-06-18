@@ -1,0 +1,125 @@
+{
+  "Equipamentos": {
+    "Mochila": {
+      "peso": 2,
+      "preco": "2 PO",
+      "descricao": "Um saco de couro com tiras que permite carregar itens nas costas."
+    },
+    "Corda de Cânhamo (15 metros)": {
+      "peso": 5,
+      "preco": "1 PO",
+      "descricao": "Resistente, pode suportar até 250 kg."
+    },
+    "Corda de Seda (15 metros)": {
+      "peso": 2.5,
+      "preco": "10 PO",
+      "descricao": "Mais leve e resistente, suporta até 250 kg."
+    },
+    "Tocha": {
+      "peso": 0.5,
+      "preco": "0.01 PO",
+      "descricao": "Ilumina um raio de 6 metros por 1 hora ao ser acesa."
+    },
+    "Rações (1 dia)": {
+      "peso": 1,
+      "preco": "0.5 PO",
+      "descricao": "Comida seca para um dia de viagem."
+    },
+    "Cantil": {
+      "peso": 2,
+      "preco": "0.2 PO",
+      "descricao": "Contém até 2 litros de água."
+    },
+    "Pedra de Afiar": {
+      "peso": 0.1,
+      "preco": "0.1 PO",
+      "descricao": "Usada para manter armas de lâmina afiadas."
+    },
+    "Pé de Cabra": {
+      "peso": 2.5,
+      "preco": "2 PO",
+      "descricao": "Concede vantagem em testes de Força para abrir portas ou caixotes."
+    }
+  },
+  "Ferramentas": {
+    "Kit de Herborismo": {
+      "peso": 1,
+      "preco": "5 PO",
+      "descricao": "Usado para criar poções, antídotos e remédios."
+    },
+    "Kit de Ladrão": {
+      "peso": 1,
+      "preco": "25 PO",
+      "descricao": "Contém ferramentas para abrir fechaduras e desarmar armadilhas."
+    },
+    "Kit de Caligrafia": {
+      "peso": 2.5,
+      "preco": "10 PO",
+      "descricao": "Tintas, penas, pergaminho e selos para escrita profissional."
+    },
+    "Kit de Alquimia": {
+      "peso": 4,
+      "preco": "50 PO",
+      "descricao": "Permite criar ácidos, antídotos, poções e substâncias químicas."
+    },
+    "Kit de Pintura": {
+      "peso": 2,
+      "preco": "10 PO",
+      "descricao": "Tintas, pincéis e suportes para pintura artística."
+    }
+  },
+  "Poções": {
+    "Poção de Cura": {
+      "peso": 0.5,
+      "preco": "50 PO",
+      "descricao": "Recupera 2d4 + 2 pontos de vida ao ser ingerida."
+    },
+    "Poção de Cura Maior": {
+      "peso": 0.5,
+      "preco": "150 PO",
+      "descricao": "Recupera 4d4 + 4 pontos de vida."
+    },
+    "Poção de Cura Superior": {
+      "peso": 0.5,
+      "preco": "500 PO",
+      "descricao": "Recupera 8d4 + 8 pontos de vida."
+    },
+    "Poção de Invisibilidade": {
+      "peso": 0.5,
+      "preco": "300 PO",
+      "descricao": "Fica invisível por até 1 hora ou até atacar ou conjurar magia."
+    },
+    "Poção de Força de Gigante": {
+      "peso": 0.5,
+      "preco": "500 PO",
+      "descricao": "Aumenta a Força para um valor determinado por 1 hora."
+    }
+  },
+  "Diversos": {
+    "Espelho de Aço Polido": {
+      "peso": 0.5,
+      "preco": "5 PO",
+      "descricao": "Pode ser usado para ver ao redor de cantos ou detectar criaturas invisíveis."
+    },
+    "Frasco de Vidro": {
+      "peso": 0.1,
+      "preco": "0.2 PO",
+      "descricao": "Usado para armazenar líquidos pequenos."
+    },
+    "Giz (1 pedaço)": {
+      "peso": 0.01,
+      "preco": "0.01 PO",
+      "descricao": "Para marcações em superfícies sólidas."
+    },
+    "Tenda (2 pessoas)": {
+      "peso": 10,
+      "preco": "2 PO",
+      "descricao": "Abrigo portátil para duas pessoas."
+    },
+    "Trapo de Óleo": {
+      "peso": 0.5,
+      "preco": "0.1 PO",
+      "descricao": "Usado para lubrificar ou criar incêndios pequenos."
+    }
+  }
+}
