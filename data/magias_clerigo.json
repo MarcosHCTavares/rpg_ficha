@@ -1,0 +1,25 @@
+[
+  {
+    "nome": "Cura",
+    "nivel": 1,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "Toque",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Restaura 1d8 + modificador de habilidade de conjuração em pontos de vida.",
+    "classes": ["Clérigo"]
+  },
+  {
+    "nome": "Luz",
+    "nivel": 0,
+    "escola": "Evocação",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "Toque",
+    "componentes": ["V", "M"],
+    "materiais": "Um vaga-lume ou fósforo",
+    "duracao": "1 hora",
+    "descricao": "Um objeto tocado emite luz brilhante em um raio de 6 metros.",
+    "classes": ["Clérigo"]
+  }
+]
