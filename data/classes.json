@@ -1,0 +1,244 @@
+[
+  {
+    "nome": "Bárbaro",
+    "dado_vida": "d12",
+    "atributo_principal": ["forca"],
+    "salvaguardas": ["forca", "constituicao"],
+    "proficiencias_armas": ["armas simples", "armas marciais"],
+    "proficiencias_armaduras": ["armaduras leves", "armaduras médias", "escudos"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Adestrar Animais", "Atletismo", "Intimidação", "Natureza", "Percepção", "Sobrevivência"]
+    },
+    "subclasses": [
+      {
+        "nome": "Caminho do Berserker",
+        "descricao": "Fúria insana e resistência além dos limites."
+      },
+      {
+        "nome": "Caminho do Totem",
+        "descricao": "Espíritos animais guiam sua fúria e resiliência."
+      }
+    ]
+  },
+  {
+    "nome": "Bardo",
+    "dado_vida": "d8",
+    "atributo_principal": ["carisma"],
+    "salvaguardas": ["destreza", "carisma"],
+    "proficiencias_armas": ["armas simples", "bestas de mão", "espadas longas", "espadas curtas", "rapieiras"],
+    "proficiencias_armaduras": ["armaduras leves"],
+    "pericias_escolha": {
+      "quantidade": 3,
+      "opcoes": ["Acrobacia", "Atuação", "Enganação", "História", "Intuição", "Investigação", "Percepção", "Persuasão", "Prestidigitação", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Colégio do Conhecimento",
+        "descricao": "Mestres do saber e da magia versátil."
+      },
+      {
+        "nome": "Colégio do Valor",
+        "descricao": "Inspiram heróis nas linhas de frente."
+      }
+    ]
+  },
+  {
+    "nome": "Bruxo",
+    "dado_vida": "d8",
+    "atributo_principal": ["carisma"],
+    "salvaguardas": ["sabedoria", "carisma"],
+    "proficiencias_armas": ["armas simples"],
+    "proficiencias_armaduras": ["armaduras leves"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Arcanismo", "Enganação", "História", "Intimidação", "Investigação", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Patrono — O Demônio",
+        "descricao": "Poder vindo de entidades infernais."
+      },
+      {
+        "nome": "Patrono — O Grande Antigo",
+        "descricao": "Poderes de entidades cósmicas além da compreensão."
+      }
+    ]
+  },
+  {
+    "nome": "Clérigo",
+    "dado_vida": "d8",
+    "atributo_principal": ["sabedoria"],
+    "salvaguardas": ["sabedoria", "carisma"],
+    "proficiencias_armas": ["armas simples"],
+    "proficiencias_armaduras": ["armaduras leves", "armaduras médias", "escudos"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["História", "Intuição", "Medicina", "Persuasão", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Domínio da Vida",
+        "descricao": "Foco em cura e proteção."
+      },
+      {
+        "nome": "Domínio da Guerra",
+        "descricao": "Combate físico aliado à magia divina."
+      }
+    ]
+  },
+  {
+    "nome": "Druida",
+    "dado_vida": "d8",
+    "atributo_principal": ["sabedoria"],
+    "salvaguardas": ["inteligencia", "sabedoria"],
+    "proficiencias_armas": ["bordões", "dardos", "dardos de mão", "foices", "lanças", "maças", "fundas", "cimitarras"],
+    "proficiencias_armaduras": ["armaduras leves (não metálicas)", "armaduras médias (não metálicas)", "escudos (não metálicos)"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Arcanismo", "Intuição", "Medicina", "Natureza", "Percepção", "Religião", "Sobrevivência"]
+    },
+    "subclasses": [
+      {
+        "nome": "Círculo da Terra",
+        "descricao": "Magia aprimorada e conexão profunda com a terra."
+      },
+      {
+        "nome": "Círculo da Lua",
+        "descricao": "Aprimoramento da transformação em animais."
+      }
+    ]
+  },
+  {
+    "nome": "Guerreiro",
+    "dado_vida": "d10",
+    "atributo_principal": ["forca", "destreza"],
+    "salvaguardas": ["forca", "constituicao"],
+    "proficiencias_armas": ["armas simples", "armas marciais"],
+    "proficiencias_armaduras": ["armaduras leves", "armaduras médias", "armaduras pesadas", "escudos"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Acrobacia", "Adestrar Animais", "Atletismo", "História", "Intuição", "Intimidação", "Percepção", "Sobrevivência"]
+    },
+    "subclasses": [
+      {
+        "nome": "Arquetipo Campeão",
+        "descricao": "Foco em proezas físicas e feitos heroicos."
+      },
+      {
+        "nome": "Arquetipo Mestre de Batalha",
+        "descricao": "Uso de manobras táticas e estratégias de combate."
+      }
+    ]
+  },
+  {
+    "nome": "Ladino",
+    "dado_vida": "d8",
+    "atributo_principal": ["destreza"],
+    "salvaguardas": ["destreza", "inteligencia"],
+    "proficiencias_armas": ["armas simples", "bestas de mão", "espadas longas", "espadas curtas", "rapieiras"],
+    "proficiencias_armaduras": ["armaduras leves"],
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": ["Acrobacia", "Atletismo", "Atuação", "Enganação", "Furtividade", "Intimidação", "Intuição", "Investigação", "Percepção", "Persuasão", "Prestidigitação"]
+    },
+    "subclasses": [
+      {
+        "nome": "Arquétipo Ladrão",
+        "descricao": "Mestre em furtividade e agilidade."
+      },
+      {
+        "nome": "Arquétipo Assassino",
+        "descricao": "Especialista em eliminar alvos rapidamente."
+      }
+    ]
+  },
+  {
+    "nome": "Mago",
+    "dado_vida": "d6",
+    "atributo_principal": ["inteligencia"],
+    "salvaguardas": ["inteligencia", "sabedoria"],
+    "proficiencias_armas": ["adagas", "dardos", "bordões", "fundas", "bastões", "bestas leves"],
+    "proficiencias_armaduras": [],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Arcanismo", "História", "Intuição", "Investigação", "Medicina", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Tradição da Evocação",
+        "descricao": "Especialista em magias destrutivas."
+      },
+      {
+        "nome": "Tradição da Ilusão",
+        "descricao": "Mestre de ilusões e truques mágicos."
+      }
+    ]
+  },
+  {
+    "nome": "Monge",
+    "dado_vida": "d8",
+    "atributo_principal": ["destreza", "sabedoria"],
+    "salvaguardas": ["forca", "destreza"],
+    "proficiencias_armas": ["armas simples", "espadas curtas"],
+    "proficiencias_armaduras": [],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Acrobacia", "Atletismo", "Furtividade", "História", "Intuição", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Tradição do Caminho da Mão Aberta",
+        "descricao": "Mestre de artes marciais físicas e espirituais."
+      },
+      {
+        "nome": "Tradição da Sombra",
+        "descricao": "Especialista em furtividade e manipulação das sombras."
+      }
+    ]
+  },
+  {
+    "nome": "Paladino",
+    "dado_vida": "d10",
+    "atributo_principal": ["forca", "carisma"],
+    "salvaguardas": ["sabedoria", "carisma"],
+    "proficiencias_armas": ["armas simples", "armas marciais"],
+    "proficiencias_armaduras": ["armaduras leves", "armaduras médias", "armaduras pesadas", "escudos"],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": ["Atletismo", "Intuição", "Intimidação", "Medicina", "Persuasão", "Religião"]
+    },
+    "subclasses": [
+      {
+        "nome": "Juramento da Devoção",
+        "descricao": "Foco em pureza, honra e virtude."
+      },
+      {
+        "nome": "Juramento dos Vingadores",
+        "descricao": "Busca implacável pela punição dos maus."
+      }
+    ]
+  },
+  {
+    "nome": "Patrulheiro",
+    "dado_vida": "d10",
+    "atributo_principal": ["destreza", "sabedoria"],
+    "salvaguardas": ["forca", "destreza"],
+    "proficiencias_armas": ["armas simples", "armas marciais"],
+    "proficiencias_armaduras": ["armaduras leves", "armaduras médias", "escudos"],
+    "pericias_escolha": {
+      "quantidade": 3,
+      "opcoes": ["Adestrar Animais", "Atletismo", "Furtividade", "Intuição", "Investigação", "Natureza", "Percepção", "Sobrevivência"]
+    },
+    "subclasses": [
+      {
+        "nome": "Conclave do Caçador",
+        "descricao": "Especializado em caçar presas poderosas."
+      },
+      {
+        "nome": "Conclave da Fera",
+        "descricao": "Laços sobrenaturais com espíritos animais."
+      }
+    ]
+  }
+]
