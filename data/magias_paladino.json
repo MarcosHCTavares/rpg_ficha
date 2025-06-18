@@ -1,0 +1,13 @@
+[
+  {
+    "nome": "Imposição das Mãos",
+    "nivel": 1,
+    "escola": "Abjuração",
+    "tempo_conjuracao": "1 ação",
+    "alcance": "Toque",
+    "componentes": ["V", "S"],
+    "duracao": "Instantânea",
+    "descricao": "Cura pontos de vida até um total igual a 5 vezes seu nível de paladino.",
+    "classes": ["Paladino"]
+  }
+]
